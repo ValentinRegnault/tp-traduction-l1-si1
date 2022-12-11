@@ -8,11 +8,36 @@ import org.junit.Test;
 
 
 public class TraducteurTest {
+	public static boolean estTrie(String[] tab) {
+		for (int i = 1; i < tab.length; i++) {
+			if(tab[i].compareTo(tab[i - 1]) < 0) return false;
+		}
+		return true;
+	}
+	
+	@Test
+	public void testEstTrie1() {
+		String[] tab = {"a", "b", "c"};
+		assertTrue(estTrie(tab));
+	}
+
+	@Test
+	public void testEstTrie2() {
+		String[] tab = {"b", "a", "c"};
+		assertFalse(estTrie(tab));
+	}
+
+	@Test
+	public void testEstTrie3() {
+		String[] tab = {};
+		assertTrue(estTrie(tab));
+	}
+
 	@Test
 	public void testIndiceClef1() {
 		String[] clefs = new String[] {"arbre", "nuit", "jaune"};
 		String[] valeurs = new String[] {"tree", "night", "yellow"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 3, 3);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "nuit";
 		int indice = 1;
@@ -23,7 +48,7 @@ public class TraducteurTest {
 	public void testIndiceClef2() {
 		String[] clefs = new String[] {"arbre", "nuit", "jaune"};
 		String[] valeurs = new String[] {"tree", "night", "yellow"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 3, 3);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "dsvssbsbsb";
 		assertEquals(table.indiceClef(clef), -1);
@@ -33,7 +58,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide1() {
 		String[] clefs = new String[] {"a"};
 		String[] valeurs = new String[] {"a"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 1, 1);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "a";
 		int indice = 0;
@@ -44,7 +69,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide2() {
 		String[] clefs = new String[] {"a"};
 		String[] valeurs = new String[] {"a"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 1, 1);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "b";
 		int indice = -1;
@@ -55,7 +80,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide3() {
 		String[] clefs = new String[] {"a", "b"};
 		String[] valeurs = new String[] {"a", "b"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 2, 2);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "a";
 		assertEquals(table.indiceClef(clef), 0);
@@ -65,7 +90,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide4() {
 		String[] clefs = new String[] {"a", "b"};
 		String[] valeurs = new String[] {"a", "b"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 2, 2);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "b";
 		assertEquals(table.indiceClef(clef), 1);
@@ -75,7 +100,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide5() {
 		String[] clefs = new String[] {"a", "b"};
 		String[] valeurs = new String[] {"a", "b"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 2, 2);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "c";
 		assertEquals(table.indiceClef(clef), -1);
@@ -85,7 +110,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide6() {
 		String[] clefs = new String[] {"a", "b", "c", "d", "e"};
 		String[] valeurs = new String[] {"a", "b", "c", "d", "e"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 5, 5);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "d";
 		assertEquals(table.indiceClef(clef), 3);
@@ -95,7 +120,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide7() {
 		String[] clefs = new String[] {"a", "b", "c", "d", "e"};
 		String[] valeurs = new String[] {"a", "b", "c", "d", "e"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 5, 5);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "e";
 		assertEquals(table.indiceClef(clef), 4);
@@ -105,7 +130,7 @@ public class TraducteurTest {
 	public void testIndiceClefRapide8() {
 		String[] clefs = new String[] {"a", "b", "c", "d", "e"};
 		String[] valeurs = new String[] {"a", "b", "c", "d", "e"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 5, 5);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "a";
 		assertEquals(table.indiceClef(clef), 0);
@@ -115,7 +140,7 @@ public class TraducteurTest {
 	public void testRecuperer1(){
 		String[] clefs = new String[] {"arbre", "nuit", "jaune"};
 		String[] valeurs = new String[] {"tree", "night", "yellow"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 3, 3);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "arbre";
 		String valeur = "tree";
@@ -126,7 +151,7 @@ public class TraducteurTest {
 	public void testRecuperer2(){
 		String[] clefs = new String[] {"arbre", "nuit", "jaune"};
 		String[] valeurs = new String[] {"tree", "night", "yellow"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 3, 3);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "nuit";
 		String valeur = "night";
@@ -137,40 +162,235 @@ public class TraducteurTest {
 	public void testRecuperer3(){
 		String[] clefs = new String[] {"arbre", "nuit", "jaune"};
 		String[] valeurs = new String[] {"tree", "night", "yellow"};
-		TableAssociation table = new TableAssociation(clefs, valeurs, 3, 3);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
 		
 		String clef = "dpjdsklns";
 		assertNull(table.recuperer(clef));
 	}
+
+	@Test
+	public void testIndicePlusProche1() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		assertEquals(0, table.indicePlusProche("bonjour"));
+	}
+
+	@Test
+	public void testIndicePlusProche2() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit", "soleil", "zombie"};
+		String[] valeurs = new String[] {"tree", "yellow", "night", "sun", "zombie"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		assertEquals(3, table.indicePlusProche("somnenbulle"));
+	}
+
+
+	@Test
+	public void testIndicePlusProche3() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		assertEquals(0, table.indicePlusProche("jaune"));
+	}
+
+	@Test
+	public void testIndicePlusProche4() {
+		String[] clefs = new String[] {};
+		String[] valeurs = new String[] {};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		assertEquals(-1, table.indicePlusProche("jaune"));
+	}
+
+	@Test
+	public void testIndicePlusProche5() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		assertEquals(2, table.indicePlusProche("zombie"));
+	}
+
+	@Test
+	public void testIndicePlusProche6() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		assertEquals(-1, table.indicePlusProche("aaaaa"));
+	}
+
+	@Test
+	public void testerCompleterTabParTab1() {
+		String[] aCompleter = {};
+		String[] complement = {};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {}, aCompleter);
+		assertArrayEquals(new String[] {}, complement);
+	}
+
+	@Test
+	public void testerCompleterTabParTab2() {
+		String[] aCompleter = {null};
+		String[] complement = {};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {null}, aCompleter);
+		assertArrayEquals(new String[] {}, complement);
+	}
 	
 	@Test
-	public void testAjouterClef1() {
-		int maxAssoc = 1;
-		int nbAssoc = 0;
-		String[] clefs = new String[maxAssoc];
-		String[] valeurs = new String[maxAssoc] ;
-		TableAssociation table = new TableAssociation(clefs, valeurs, maxAssoc, nbAssoc);
-		
-		//On fait plusieurs test ici, car JUnit effectue les tests en parallèle
-		//et on veut éviter les interférence entre ces tests.
-		String clef = "eat";
-		String valeur = "manger";
-		table.ajouterCouple(clef, valeur);
-		assertEquals(table.recuperer(clef), valeur);
-		
-		String clef2 = "drink";
-		String valeur2 = "boire";
-		table.ajouterCouple(clef2, valeur2); // le couple ne sera pas ajoutée car la 
-		//table est pleine
-		assertNull(table.recuperer(clef2));
-		
-		String clef3 = "eat";
-		String valeur3 = "boire";
-		table.ajouterCouple(clef3, valeur3); // le couple ne sera pas ajoutée car la clef 
-		//est déjà associé à "manger"
-		//On s'attend a recuperer "manger" pour la clef "eat", et pas "boire"
-		assertEquals(table.recuperer(clef3), "manger");
+	public void testerCompleterTabParTab3() {
+		String[] aCompleter = {null};
+		String[] complement = {"je"};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {"je"}, aCompleter);
+		assertArrayEquals(new String[] {"je"}, complement);
 	}
+
+	@Test
+	public void testerCompleterTabParTab4() {
+		String[] aCompleter = {null, null};
+		String[] complement = {"suis", "plus"};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {"suis", "plus"}, aCompleter);
+		assertArrayEquals(new String[] {"suis", "plus"}, complement);
+	}
+
+	@Test
+	public void testerCompleterTabParTab5() {
+		String[] aCompleter = {null, "qu'une"};
+		String[] complement = {"moitié"};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {"moitié", "qu'une"}, aCompleter);
+		assertArrayEquals(new String[] {"moitié"}, complement);
+	}
+
+	@Test
+	public void testerCompleterTabParTab6() {
+		String[] aCompleter = {"je", null};
+		String[] complement = {"suis"};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {"je", "suis"}, aCompleter);
+		assertArrayEquals(new String[] {"suis"}, complement);
+	}
+
+	@Test
+	public void testerCompleterTabParTab7() {
+		String[] aCompleter = {null, "plus", null};
+		String[] complement = {"que", "moi"};
+		TableAssociation.completerTabParTab(aCompleter, complement);
+
+		assertArrayEquals(new String[] {"que", "plus", "moi"}, aCompleter);
+		assertArrayEquals(new String[] {"que", "moi"}, complement);
+	}
+
+	@Test
+	public void testAjouterUnCouple1() {
+		String[] clefs = new String[] {};
+		String[] valeurs = new String[] {};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		table.ajouterUnCouple("bonjour", "good morning");
+		assertArrayEquals(new String[] {"bonjour"}, table.clefs);
+		assertArrayEquals(new String[] {"good morning"}, table.valeurs);
+	}
+	
+	@Test
+	public void testAjouterUnCouple2() {
+		String[] clefs = new String[] {"arbre", "nuit", "jaune"};
+		String[] valeurs = new String[] {"tree", "night", "yellow"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		table.ajouterUnCouple("bonjour", "good morning");
+		assertArrayEquals(new String[] {"arbre", "bonjour", "nuit", "jaune"}, table.clefs);
+		assertArrayEquals(new String[] {"tree", "good morning", "night", "yellow"}, table.valeurs);
+	}
+
+	@Test
+	public void testAjouterAssociations1() {
+		String[] clefs = new String[] {};
+		String[] valeurs = new String[] {};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		String[] clefsSup = new String[] {"abricot"};
+		String[] valeursSup = new String[] {"abricot"};
+
+		table.ajouterAssociations(clefsSup, valeursSup);
+
+		assertArrayEquals(new String[] { "abricot"}, table.clefs);
+		assertArrayEquals(new String[] {"abricot"}, table.clefs);
+	} 
+
+	@Test
+	public void testAjouterAssociations2() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		String[] clefsSup = new String[] {"abricot"};
+		String[] valeursSup = new String[] {"abricot"};
+
+		table.ajouterAssociations(clefsSup, valeursSup);
+
+		assertArrayEquals(new String[] {"abricot", "arbre" , "jaune", "nuit"}, table.clefs);
+		assertArrayEquals(new String[] {"abricot", "tree", "yellow", "night"}, table.valeurs);
+	} 
+
+	@Test
+	public void testAjouterAssociations3() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		String[] clefsSup = new String[] {};
+		String[] valeursSup = new String[] {};
+
+		table.ajouterAssociations(clefsSup, valeursSup);
+
+		assertArrayEquals(new String[] {"arbre", "jaune", "nuit"}, table.clefs);
+		assertArrayEquals(new String[] {"tree", "yellow", "night"}, table.valeurs);
+	} 
+
+	@Test
+	public void testAjouterAssociations4() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		String[] clefsSup = new String[] {"zombie"};
+		String[] valeursSup = new String[] {"zombie"};
+
+		table.ajouterAssociations(clefsSup, valeursSup);
+
+		assertArrayEquals(new String[] {"arbre", "jaune", "nuit", "zombie"}, table.clefs);
+		assertArrayEquals(new String[] {"tree", "yellow", "night", "zombie"}, table.valeurs);
+	}
+	
+	@Test
+	public void testAjouterAssociations5() {
+		String[] clefs = new String[] {"arbre", "jaune", "nuit"};
+		String[] valeurs = new String[] {"tree", "yellow", "night"};
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+
+		String[] clefsSup = new String[] {"lego"};
+		String[] valeursSup = new String[] {"lego"};
+
+		table.ajouterAssociations(clefsSup, valeursSup);
+
+		assertArrayEquals(new String[] {"arbre", "jaune", "lego", "nuit"}, table.clefs);
+		assertArrayEquals(new String[] {"tree", "yellow", "lego", "night"}, table.valeurs);
+	} 
+	
+
 	
 	@Test
 	public void testTableDictionnaire() {
@@ -181,11 +401,8 @@ public class TraducteurTest {
 		assertEquals(table.recuperer("boire"), "drink");
 		assertNull(table.recuperer("qgfdbdb"));
 		
-		table.ajouterCouple("tatata", "tototo");
+		table.ajouterUnCouple("tatata", "tototo");
 		assertEquals(table.recuperer("tatata"), "tototo");
-		
-		table.ajouterCouple("tititi", "tututu");
-		assertNull(table.recuperer("tititi"));
 	}
 	
 	@Test
@@ -207,7 +424,7 @@ public class TraducteurTest {
 		String[] clefsAttendu = new String[] {"c", "b", "a"};
 		String[] valeursAttendu = new String[] { "c", "b", "a"};
 
-		QuickSort.echanger_association(clefs, valeurs, 0, 2);
+		QuickSort.echangerAssociation(clefs, valeurs, 0, 2);
 		assertArrayEquals(clefs, clefsAttendu);
 		assertArrayEquals(valeurs, valeursAttendu);
 	}
@@ -221,10 +438,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[] { "b", "b", "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 3, 3);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 3, 3);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.echanger_association(table.clefs, table.valeurs, 0, 2);
+		QuickSort.echangerAssociation(table.clefs, table.valeurs, 0, 2);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -238,10 +455,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[] { "b", "b", "b", "c"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.echanger_association(table.clefs, table.valeurs, 1, 1);
+		QuickSort.echangerAssociation(table.clefs, table.valeurs, 1, 1);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -256,10 +473,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[] {"a", "b", "c", "d"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.partition_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.partitionAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -273,10 +490,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[] {"a", "b", "c", "d"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.partition_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.partitionAssociation(table.clefs, table.valeurs, 0, 3);
 
 		assertArrayEquals(tableAttendue.clefs, table.clefs);
 		assertArrayEquals(tableAttendue.valeurs, table.valeurs);
@@ -291,10 +508,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[] {"a", "a", "a", "a"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.partition_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.partitionAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -308,10 +525,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "a", "a", "b", "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.partition_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.partitionAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -325,10 +542,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 1, 1);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 1, 1);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.partition_association(table.clefs, table.valeurs, 0, 0);
+		QuickSort.partitionAssociation(table.clefs, table.valeurs, 0, 0);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -342,10 +559,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{"a", "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 2, 2);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 2, 2);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.partition_association(table.clefs, table.valeurs, 0, 1);
+		QuickSort.partitionAssociation(table.clefs, table.valeurs, 0, 1);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -359,10 +576,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "a", "b", "d", "e"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.quicksort_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.quicksortAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -376,10 +593,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "b", "b", "b", "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.quicksort_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.quicksortAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -393,10 +610,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "b", "b", "b", "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.quicksort_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.quicksortAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -410,10 +627,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "b", "b", "b", "b"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 4, 4);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 4, 4);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.quicksort_association(table.clefs, table.valeurs, 0, 3);
+		QuickSort.quicksortAssociation(table.clefs, table.valeurs, 0, 3);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
@@ -427,10 +644,10 @@ public class TraducteurTest {
 		String[] valeursAttendu = new String[]{ "a", "b", "c", "d", "e", "f", "g"};
 
 
-		TableAssociation table = new TableAssociation(clefs, valeurs, 7, 7);
-		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu, 7, 7);
+		TableAssociation table = new TableAssociation(clefs, valeurs);
+		TableAssociation tableAttendue = new TableAssociation(clefsAttendu, valeursAttendu);
 
-		QuickSort.quicksort_association(table.clefs, table.valeurs, 0, 6);
+		QuickSort.quicksortAssociation(table.clefs, table.valeurs, 0, 6);
 		assertArrayEquals(table.clefs, tableAttendue.clefs);
 		assertArrayEquals(table.valeurs, tableAttendue.valeurs);
 	}
